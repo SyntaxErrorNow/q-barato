@@ -1,12 +1,11 @@
 package com.management;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-import java.awt.Color;
-
-import com.management.Formularios.FormularioBuscarProducto;
-import com.management.Formularios.FormularioMostrarProducto;
+import com.management.Formularios.Producto.FormularioBuscarProducto;
+import com.management.Formularios.Producto.FormularioComprobarExistenciaProducto;
+import com.management.Formularios.Producto.FormularioElegirCategoriaReabastecer;
+import com.management.Formularios.Producto.FormularioImprimirEtiqueta;
+import com.management.Formularios.Producto.FormularioMostrarProducto;
+import com.management.Formularios.Producto.FormularioRegistrarMovimientos;
+import com.management.Formularios.Producto.FormularioVerificarEstadoProducto;
 
 public class Usuario {
     private String nombre;
@@ -59,34 +58,35 @@ public class Usuario {
     }
 
 
-    public void mostrarInformacionTodosProductos(){
-        File carpeta = new File("productos/");
-        List<String> archivos = Arrays.asList(carpeta.list());
-        for (String archivo : archivos) {
-            int tam = archivo.length();
-            Producto producto = Archivo.getProducto(archivo.substring(0, tam - 5));
-            System.out.println(producto);
-        }
-    }
-    
     protected void mostrarInformacionProducto(){
-        FormularioMostrarProducto form = new FormularioMostrarProducto();
-        form.setSize(250,250);
-        form.setResizable(false);
-        form.setLocationRelativeTo(null);
-        form.getContentPane().setBackground(Color.WHITE);
-        form.setVisible(true);
+        new FormularioMostrarProducto();
+
     }
 
     protected void buscarProducto(){
-        FormularioBuscarProducto form = new FormularioBuscarProducto();
-        form.setSize(700,250);
-        form.setResizable(false);
-        form.setLocationRelativeTo(null);
-        form.getContentPane().setBackground(Color.WHITE);
-        form.setVisible(true);
+        new FormularioBuscarProducto();
     }
 
+    protected void verificarEstadoProducto(){
+        new FormularioVerificarEstadoProducto();
+    }
+
+    protected void registrarMovimientos(){
+        new FormularioRegistrarMovimientos();
+    }
+
+
+    public void comprobarExistenciaProducto(){
+        new FormularioComprobarExistenciaProducto();
+    }
+
+    protected void imprimirEtiqueta(){
+        new FormularioImprimirEtiqueta();
+    }
+
+    protected void reabasteserProducto(){
+        new FormularioElegirCategoriaReabastecer();
+    }
 
     @Override
     public String toString() {

@@ -1,5 +1,7 @@
 package com.management;
 
+import com.management.utils.UtilsCategoria;
+
 public class Producto{
     private String id;
     private String nombre;
@@ -8,26 +10,33 @@ public class Producto{
     private String categoria;
     private String subCategoria;
     private Double precio;
-    private String proveedor;
+    private Proveedor proveedor;
     private int cantidadAdquirida;
     private int cantidadVendida;
     private int cantidadDisponible;
-    private String fechaCompra;
-    private String fechaCaducidad;
+    private Fecha fechaCompra;
+    private Fecha fechaCaducidad;
+    private boolean disponibilidad;
 
-    public Producto(String nombre, String descripcion, String marca, String categoria, String subCategoria, Double precio, String proveedor, int cantidadAdquirida, String fechaCompra, String fechaCaducidad){
+    public Producto(String nombre, String descripcion, String marca,
+                    String categoria, String subCategoria, Double precio,
+                    Proveedor proveedor, int cantidadAdquirida,
+                    int diaCompra, int mesCompra, int anioCompra,
+                    int diaCaducidad, int mesCaducidad, int anioCaducidad)
+    {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.marca = marca;
-        this.categoria = validarCategoria(categoria);
+        this.categoria = UtilsCategoria.validarCategoria(categoria);
         this.subCategoria = subCategoria;
         this.precio = precio;
         this.proveedor = proveedor;
         this.cantidadAdquirida = cantidadAdquirida;
         this.cantidadVendida = 0;
         this.cantidadDisponible = cantidadAdquirida;
-        this.fechaCompra = fechaCompra;
-        this.fechaCaducidad = fechaCaducidad;
+        this.fechaCompra = new Fecha(diaCompra,mesCompra,anioCompra);
+        this.fechaCaducidad = new Fecha(diaCaducidad, mesCaducidad, anioCaducidad);
+        this.disponibilidad = (cantidadDisponible > 0) ? true : false;
     }
 
     public String getNombre(){
@@ -72,10 +81,10 @@ public class Producto{
     public void setPrecio(Double precio) {
         this.precio = precio;
     }
-    public String getProveedor() {
+    public Proveedor getProveedor() {
         return proveedor;
     }
-    public void setProveedor(String proveedor) {
+    public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
     public int getCantidadAdquirida() {
@@ -96,54 +105,39 @@ public class Producto{
     public void setCantidadDisponible(int cantidadDisponible) {
         this.cantidadDisponible = cantidadDisponible;
     }
-    public String getFechaCompra() {
+    public Fecha getFechaCompra() {
         return fechaCompra;
     }
-    public void setFechaCompra(String fechaCompra) {
-        this.fechaCompra = fechaCompra;
+    public void setFechaCompra(int diaCompra, int mesCompra, int anioCompra) {
+        this.fechaCompra = new Fecha(diaCompra, mesCompra, anioCompra);
     }
-    public String getFechaCaducidad() {
+    public Fecha getFechaCaducidad() {
         return fechaCaducidad;
     }
-    public void setFechaCaducidad(String fechaCaducidad) {
-        this.fechaCaducidad = fechaCaducidad;
+    public void setFechaCaducidad(int diaCaducidad, int mesCaducidad, int anioCaducidad) {
+        this.fechaCaducidad = new Fecha(diaCaducidad, mesCaducidad, anioCaducidad);
+    }
+    public boolean getDisponibilidad(){
+        return disponibilidad;
+    }
+    public void setDisponibilidad(){
+        disponibilidad = (cantidadDisponible > 0 ) ? true : false;
     }
 
-    public int getNumCategoria(){
-        if(categoria.equals("despensa")){
-            return 1;
-        }
-        if(categoria.equals("comestibles")){
-            return 2;
-        }
-        if(categoria.equals("bebidas")){
-            return 3;
-        }
-        if(categoria.equals("aseo")){
-            return 4;
-        }
-        if(categoria.equals("cuidado personal")){
-            return 5;
-        }else{
-            return 6;
-        }
-    }
+    public void venderProducto(int cantidad){
+        this.cantidadDisponible -= cantidad;
 
-    public String validarCategoria(String categoriaIngresada){
-        String cat = categoriaIngresada.toLowerCase();
-        if(cat.equals("despensa")||cat.equals("comestibles")||cat.equals("bebidas")||
-           cat.equals("aseo")||cat.equals("cuidado personal")){
-            return cat;
-        }else{
-            return "otros";
-        }
+    }
+    public void abastecerProducto(int cantidad){
+        this.cantidadAdquirida += cantidad;
+        this.cantidadDisponible += cantidad;
     }
 
     @Override
     public String toString(){
-        return "\nNombre: " + nombre + "\nId: " + id + "\nDescripcion: " + descripcion + "\nMarca: " + marca + 
+        return "\nNombre: " + nombre + "\nId: " + id + "\nDescripcion: " + descripcion + "\nMarca: " + marca +
                "\nCategoria " + categoria + "\nSubCategoria: " + subCategoria + "\nPrecio unitario: " + precio +
                "\nProveedor: " + proveedor + "\nCantidad adquirida: " + cantidadAdquirida + "\nCantidad vendida: " + cantidadVendida +
-               "\nCantidad disponible: " + cantidadDisponible + "\nFecha de compra: " + fechaCompra + "\nFecha de caducidad: " + fechaCaducidad;
+               "\nCantidad disponible: " + cantidadDisponible + "\nFecha de compra: " + fechaCompra + "\nFecha de caducidad: " + fechaCaducidad  + "\nDisponible: "+ disponibilidad;
     }
 }

@@ -1,12 +1,18 @@
 package com.management;
-import java.awt.Color;
 
-import com.management.Formularios.FormularioModificarUsuario;
-import com.management.Formularios.FormularioBorrarProducto;
-import com.management.Formularios.FormularioBorrarUsuario;
-import com.management.Formularios.FormularioModificarProducto;
-import com.management.Formularios.FormularioRegistrarProducto;
-import com.management.Formularios.FormularioRegistrarUsuario;
+
+import com.management.Formularios.Producto.FormularioBorrarProducto;
+import com.management.Formularios.Producto.FormularioBorrarProductosDeUnaCategoria;
+import com.management.Formularios.Producto.FormularioDescuento;
+import com.management.Formularios.Producto.FormularioModificarProducto;
+import com.management.Formularios.Producto.FormularioRegistrarProducto;
+import com.management.Formularios.Producto.FormularioRegistrarProductoTemporada;
+import com.management.Formularios.Proveedor.FormularioEliminarProveedor;
+import com.management.Formularios.Proveedor.FormularioPedirIDProveedor;
+import com.management.Formularios.Proveedor.FormularioRegistrarProveedor;
+import com.management.Formularios.Usuario.FormularioBorrarUsuario;
+import com.management.Formularios.Usuario.FormularioModificarUsuario;
+import com.management.Formularios.Usuario.FormularioRegistrarUsuario;
 
 
 public class Encargado extends Usuario{
@@ -17,56 +23,52 @@ public class Encargado extends Usuario{
     }
 
     public void registrarEmpleado(){
-        FormularioRegistrarUsuario form = new FormularioRegistrarUsuario();
-        form.setSize(250,350);
-        form.setResizable(false);
-        form.setLocationRelativeTo(null);
-        form.getContentPane().setBackground(Color.WHITE);
-        form.setVisible(true);
+       new FormularioRegistrarUsuario();
+
     }
 
     public void modificarEmpleado(){
-        FormularioModificarUsuario form = new FormularioModificarUsuario();
-        form.setSize(250,200);
-        form.setResizable(false);
-        form.setLocationRelativeTo(null);
-        form.getContentPane().setBackground(Color.WHITE);
-        form.setVisible(true);
+        new FormularioModificarUsuario();
     }
 
     public void eliminarEmpleado(){
-        FormularioBorrarUsuario form = new FormularioBorrarUsuario();
-        form.setSize(250,250);
-        form.setResizable(false);
-        form.setLocationRelativeTo(null);
-        form.getContentPane().setBackground(Color.WHITE);
-        form.setVisible(true);
+        new FormularioBorrarUsuario();
+
     }
 
     public void registrarProducto(){
-        FormularioRegistrarProducto form = new FormularioRegistrarProducto();
-        form.setSize(250,600);
-        form.setResizable(false);
-        form.setLocationRelativeTo(null);
-        form.getContentPane().setBackground(Color.WHITE);
-        form.setVisible(true);
+        new FormularioRegistrarProducto();
+    }
+
+    public void registrarProductoPorTemporada(){
+       new FormularioRegistrarProductoTemporada();
     }
 
     public void modificarProducto(){
-        FormularioModificarProducto form = new FormularioModificarProducto();
-        form.setSize(250,200);
-        form.setResizable(false);
-        form.setLocationRelativeTo(null);
-        form.getContentPane().setBackground(Color.WHITE);
-        form.setVisible(true);
+        new FormularioModificarProducto();
     }
 
     public void eliminarProducto(){
-        FormularioBorrarProducto form = new FormularioBorrarProducto();
-        form.setSize(250,200);
-        form.setResizable(false);
-        form.setLocationRelativeTo(null);
-        form.getContentPane().setBackground(Color.WHITE);
-        form.setVisible(true);
+        new FormularioBorrarProducto();
+    }
+
+    public void eliminarProductosPorCategoria(){
+        new FormularioBorrarProductosDeUnaCategoria();
+    }
+
+    public void sugerirDescuento(){
+        new FormularioDescuento();
+    }
+
+    public void registrarProveedor(){
+        new FormularioRegistrarProveedor();
+    }
+
+    public void modificarProveedor(){
+        new FormularioPedirIDProveedor();
+    }
+
+    public void eliminarProveedor(){
+        new FormularioEliminarProveedor();
     }
 }
