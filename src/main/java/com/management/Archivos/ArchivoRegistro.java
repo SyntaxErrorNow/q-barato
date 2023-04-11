@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
+import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.management.Fecha;
 import com.management.Registro;
@@ -14,7 +14,7 @@ public class ArchivoRegistro {
 
     public static Registro getRegistro(String IDRegistro){
         try{
-        Reader registro = Files.newBufferedReader(Paths.get("movimientos/"  + IDRegistro + ".json"));
+        Reader registro = Files.newBufferedReader(Paths.get("movimientos/"+IDRegistro+".json"));
         Gson gson = new Gson();
         Registro registroReader = gson.fromJson(registro, Registro.class);
         registro.close();
@@ -39,7 +39,7 @@ public class ArchivoRegistro {
     private static String generarIDRegistro(Fecha fecha){
         int aux = 1;
         boolean valido = false;
-        int FechaID = (fecha.getAnio() * 10000 + fecha.getMes() * 100 + fecha.getDia());
+        String FechaID = (fecha.getAnio() + "-" + fecha.getMes() + "-" + fecha.getDia());
         while(!valido){
             if(getRegistro(FechaID + " " + aux) == null){
                 valido = true;
@@ -48,5 +48,28 @@ public class ArchivoRegistro {
             }
         }
         return (FechaID + " " + aux);
+    }
+
+    public static Object [][] getAllDatosRegistros(){
+        ArrayList<Registro> registros = new ArrayList<>();
+        for(int i = 1; i <= 12; i++){
+            for(int j = 2022; j < 2030; j++){
+               registros.addAll(ArchivoInventario.recopilarRegistros(i, j));
+            }
+        }
+        Object[][] datosRegistros = new Object[registros.size()][8];
+            for (int i = 0; i < registros.size(); i++) {
+                Registro registro = registros.get(i);
+
+                datosRegistros[i][0] = registro.getFecha().getAnio();
+                datosRegistros[i][1] = registro.getFecha().getMes();
+                datosRegistros[i][2] = registro.getFecha().getDia();
+                datosRegistros[i][3] = registro.getGanancia();
+                datosRegistros[i][4] = registro.getMotivo();
+                datosRegistros[i][5] = registro.getProducto().getNombre();
+                datosRegistros[i][6] = registro.getProducto().getCategoria();
+                datosRegistros[i][7] = registro.getCantidad();
+            }
+        return datosRegistros;
     }
 }

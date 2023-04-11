@@ -6,11 +6,12 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import com.management.Fecha;
 import com.management.Producto;
-import com.management.RegistroMovientos;
+import com.management.Registro;
 import com.management.Archivos.ArchivoProducto;
 import com.management.Archivos.ArchivoRegistro;
 import com.management.utils.Utils;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 
@@ -49,6 +50,12 @@ public class FormularioRegistrarVenta extends JFrame implements ActionListener, 
         add(dias);
         add(anio);
         add(botonEnvio);
+
+        this.setSize(250,250);
+            this.setResizable(false);
+            this.setLocationRelativeTo(null);
+            this.getContentPane().setBackground(Color.WHITE);
+            this.setVisible(true);
     }
 
     public void itemStateChanged(ItemEvent e) {
@@ -72,8 +79,8 @@ public class FormularioRegistrarVenta extends JFrame implements ActionListener, 
                 producto.venderProducto(restasField);
                 producto.setId(IDField);
                 ArchivoProducto.modifyProducto(producto);
-                RegistroMovientos registros = new RegistroMovientos(producto, restasField, fechaField , "Venta de un producto", producto.getPrecio() * restasField);
-                ArchivoRegistro.postRegistro(registros);
+                Registro registro = new Registro(producto, restasField, fechaField, restasField * producto.getPrecio() , "Venta", "Venta de un producto" );
+                ArchivoRegistro.postRegistro(registro);
                 setVisible(false);
             }else{
                 JOptionPane.showMessageDialog(null, "Fallo aritmetico!","ERROR!", JOptionPane.ERROR_MESSAGE);

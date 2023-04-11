@@ -35,26 +35,27 @@ public class UtilsCategoria {
         }
     }
 
-    public static String obtenerPathId(char digito){
-        if(digito=='1'){
+    public static String obtenerPathId(String digito){
+        if(digito.equals("1")){
             return "despensa";
         }
-        if(digito=='2'){
+        if(digito.equals("2")){
             return "comestibles";
         }
-        if(digito=='3'){
+        if(digito.equals("3")){
             return "bebidas";
         }
-        if(digito=='4'){
+        if(digito.equals("4")){
             return "aseo";
         }
-        if(digito=='5'){
+        if(digito.equals("5")){
             return "cuidado personal";
-        }if(digito=='7'){
+        }if(digito.equals("7")){
             return "temporada";
-        }else{
-            return "otros";
         }
+
+        return "otros";
+
     }
-   
+
 }

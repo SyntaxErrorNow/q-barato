@@ -12,21 +12,39 @@ import com.google.gson.Gson;
 import com.management.Producto;
 import com.management.utils.UtilsCategoria;
 
-public class ArchivoProducto {
+public class    ArchivoProducto {
 
 
     public static Producto getProducto(String id){
         try{
-            char digitoInicial = id.charAt(0);
+            String digitoInicial = id.substring(0, 1);
             Reader producto = Files.newBufferedReader(Paths.get("productos/"+digitoInicial+ " "+ UtilsCategoria.obtenerPathId(digitoInicial) +"/"+ id + ".json"));
             Gson gson = new Gson();
             Producto productoReader = gson.fromJson(producto, Producto.class);
             producto.close();
             return productoReader;
         }catch(Exception e){
-            System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    public static ArrayList<Producto> reabastecerProductosLote(int cantidad){
+        double porcentaje = 0.2;
+        ArrayList<Producto> productosForReabastecer = new ArrayList<>();
+        for(int i = 1; i <= 7; i++){
+            ArrayList<Producto> pCategoria = (i==7) ? getProductoTemporales() : getProductoPorCategoria(UtilsCategoria.obtenerPathId("" + i));
+            for(int j = 0; j < pCategoria.size(); j++){
+                Producto producto = pCategoria.get(j);
+                if(producto != null){
+                    if(producto.getCantidadDisponible() <= (int)((producto.getCantidadAdquirida() * porcentaje))){
+                        producto.abastecerProducto(cantidad);
+                        productosForReabastecer.add(producto);
+                        ArchivoProducto.modifyProducto(producto);
+                    }
+                }
+            }
+        }
+        return productosForReabastecer;
     }
 
     public static ArrayList<Producto> getProductoPorCategoria(String categoria){
@@ -69,10 +87,65 @@ public class ArchivoProducto {
         return pTemporada;
     }
 
+    public static Object [][] getAllDatosProductos(){
+        ArrayList<Producto> productos = new ArrayList<>();
+        for(int i = 1; i <= 7; i++){
+            ArrayList<Producto> pCategoria = (i==7)?getProductoTemporales():getProductoPorCategoria(UtilsCategoria.obtenerPathId(""+i));
+            for(int j = 0; j<pCategoria.size();j++){
+                Producto producto = pCategoria.get(j);
+                if(producto != null){
+                    productos.add(producto);
+                }
+            }
+        }
+
+
+        Object[][] datosProductos = new Object[productos.size()][18];
+        for (int i = 0; i < productos.size(); i++) {
+            Producto producto = productos.get(i);
+
+            datosProductos[i][0] = producto.getId();
+            datosProductos[i][1] = producto.getNombre();
+            datosProductos[i][2] = producto.getCapacidad();
+            datosProductos[i][3] = producto.getDescripcion();
+            datosProductos[i][4] = producto.getCualidad();
+            datosProductos[i][5] = producto.getMarca();
+            datosProductos[i][6] = producto.getCategoria();
+            datosProductos[i][7] = producto.getSubCategoria();
+            datosProductos[i][8] = producto.getPrecio();
+            datosProductos[i][9] = producto.getProveedor().getNombre();
+            datosProductos[i][10] = producto.getCantidadAdquirida();
+            datosProductos[i][11] = producto.getCantidadVendida();
+            datosProductos[i][12] = producto.getCantidadDisponible();
+            datosProductos[i][13] = producto.getFechaCompra();
+            datosProductos[i][14] = producto.getFechaCaducidad();
+            datosProductos[i][15] = producto.getDisponibilidad();
+            datosProductos[i][16] = ":";
+            datosProductos[i][17] = "-";
+        }
+
+        return datosProductos;
+    }
+
+    public static Object [][] getAllDatosExistencias(ArrayList<Producto>productos){
+        Object[][] datos = new Object[productos.size()][5];
+            for (int i = 0; i < productos.size(); i++) {
+                Producto producto = productos.get(i);
+
+                datos[i][0] = producto.getId();
+                datos[i][1] = producto.getNombre();
+                datos[i][2] = producto.getPrecio();
+                datos[i][3] = producto.getCantidadDisponible();
+                datos[i][4] = producto.getCantidadVendida();
+            }
+        return datos;
+    }
+
+
     public static ArrayList<Producto> getProductoPorNombre(String nombre){
         ArrayList<Producto> pNombre = new ArrayList<>();
         for(int i = 1; i <= 7; i++){
-            ArrayList<Producto> pCategoria = (i==7)?getProductoTemporales():getProductoPorCategoria(UtilsCategoria.obtenerPathId((char)i));
+            ArrayList<Producto> pCategoria = (i==7)?getProductoTemporales():getProductoPorCategoria(UtilsCategoria.obtenerPathId(""+i));
             for(int j = 0; j<pCategoria.size();j++){
                 Producto p = pCategoria.get(j);
                 if(p != null){
@@ -88,7 +161,7 @@ public class ArchivoProducto {
     public static ArrayList<Producto> getProductoPorSubcategoria(String subcategoria){
         ArrayList<Producto> listaProSub = new ArrayList<>();
         for(int i = 1; i <= 7; i++){
-            ArrayList<Producto> pCategoria = (i==7)?getProductoTemporales():getProductoPorCategoria(UtilsCategoria.obtenerPathId((char)i));
+            ArrayList<Producto> pCategoria = (i==7)?getProductoTemporales():getProductoPorCategoria(UtilsCategoria.obtenerPathId(""+i));
             for(int j = 0; j<pCategoria.size();j++){
                 Producto p = pCategoria.get(j);
                 if(p != null){
@@ -131,7 +204,8 @@ public class ArchivoProducto {
 
     public static void modifyProducto(Producto producto){
         try{
-            BufferedWriter bw = new BufferedWriter(new FileWriter("productos/"+ UtilsCategoria.obtenerNumeroCategoria(producto.getCategoria()) +" "+producto.getCategoria()+"/"+ producto.getId() + ".json"));
+            String ruta = (UtilsCategoria.obtenerPathId(producto.getId().substring(0, 1)).equals("temporada"))? "temporada": producto.getCategoria();
+            BufferedWriter bw = new BufferedWriter(new FileWriter("productos/"+ UtilsCategoria.obtenerNumeroCategoria(ruta) +" "+ruta+"/"+ producto.getId() + ".json"));
             Gson gson = new Gson();
             String json = gson.toJson(producto);
             bw.write(json);

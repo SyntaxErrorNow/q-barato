@@ -28,11 +28,11 @@ import java.awt.FlowLayout;
 
 public class FormularioRegistrarProductoTemporada extends JFrame implements ActionListener, ItemListener {
     JButton botonEnvio;
-    JTextField nombre, precio, descripcion, marca, cantidadAdquirida;
+    JTextField nombre, precio, cualidad, capacidad, descripcion, marca, cantidadAdquirida;
     JComboBox<String> categoria, subcategoria, temporada, proveedores;
     JComboBox<Integer> diasCompra, mesCompra, anioCompra, diasCaducidad, mesCaducidad, anioCaducidad;
-    JLabel temporadaLabel, nombreLabel, precioLabel, descripcionLabel, marcaLabel, categoriaLabel, subcategoriaLabel, proveedorLabel, cantidadAdquiridaLabel, fechaCompraLabel, fechaCaducidadLabel;
-    static String nombreField, precioField, descripcionField, marcaField, categoriaField, subcategoriaField, proveedorField;
+    JLabel temporadaLabel, nombreLabel, precioLabel, cualidadLabel, capacidadLabel, descripcionLabel, marcaLabel, categoriaLabel, subcategoriaLabel, proveedorLabel, cantidadAdquiridaLabel, fechaCompraLabel, fechaCaducidadLabel;
+    static String nombreField, cualidadField, capacidadField, precioField, descripcionField, marcaField, categoriaField, subcategoriaField, proveedorField;
     static int cantidadAdquiridaField, diaCompraField, mesCompraField, anioCompraField, diaCaducidadField, mesCaducidadField, anioCaducidadField, temporadaField;
     String [] temporadas = DataProducto.obtenerTemporadas();
     String [] categorias = DataProducto.obtenerCategorias();
@@ -74,6 +74,13 @@ public class FormularioRegistrarProductoTemporada extends JFrame implements Acti
         precioLabel = new JLabel("Precio");
         Utils.numDouble(precio);
 
+        capacidad = new JTextField(20);
+        capacidadLabel = new JLabel("Capacidad (Litros/Kilos)");
+        Utils.numDouble(capacidad);
+
+        cualidad = new JTextField(20);
+        cualidadLabel = new JLabel("Caracteristicas");
+
         descripcion = new JTextField(20);
         descripcionLabel = new JLabel("Descripcion");
 
@@ -86,7 +93,6 @@ public class FormularioRegistrarProductoTemporada extends JFrame implements Acti
 
         subcategoria = new JComboBox<String>(subCategorias);
         subcategoriaLabel = new JLabel("Subcategoria");
-
 
         proveedores = new JComboBox<String>(vacio);
         proveedorLabel = new JLabel("Proveedores para el producto");
@@ -117,6 +123,10 @@ public class FormularioRegistrarProductoTemporada extends JFrame implements Acti
         add(nombre);
         add(precioLabel);
         add(precio);
+        add(capacidadLabel);
+        add(capacidad);
+        add(cualidadLabel);
+        add(cualidad);
         add(descripcionLabel);
         add(descripcion);
         add(marcaLabel);
@@ -138,6 +148,12 @@ public class FormularioRegistrarProductoTemporada extends JFrame implements Acti
         add(diasCaducidad);
         add(anioCaducidad);
         add(botonEnvio);
+
+        this.setSize(300,600);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.getContentPane().setBackground(Color.WHITE);
+        this.setVisible(true);
 
         this.setSize(300,700);
         this.setResizable(false);
@@ -170,6 +186,8 @@ public class FormularioRegistrarProductoTemporada extends JFrame implements Acti
         temporadaField = temporada.getSelectedIndex() + 1;
         nombreField = nombre.getText();
         precioField = precio.getText();
+        capacidadField = capacidad.getText();
+        cualidadField = cualidad.getText();
         descripcionField = descripcion.getText();
         marcaField = marca.getText();
         categoriaField = (String)categoria.getItemAt(categoria.getSelectedIndex());
@@ -197,7 +215,7 @@ public class FormularioRegistrarProductoTemporada extends JFrame implements Acti
             ArrayList<String> subtipos = new ArrayList<>();
             subtipos = new ArrayList<>(Arrays.asList(DataProducto.opcionesSubCategoria(categoriaField)));
             if(subtipos.contains(subcategoriaField)){
-                Producto producto = new Producto(nombreField, descripcionField, marcaField, categoriaField, subcategoriaField, Double.parseDouble(precioField), ArchivoProveedor.getProveedorByNombre(proveedorField), cantidadAdquiridaField, diaCompraField, mesCompraField, anioCompraField, diaCaducidadField, mesCaducidadField, anioCaducidadField);
+                Producto producto = new Producto(nombreField, cualidadField+" - "+descripcionField, marcaField, categoriaField, subcategoriaField, Double.parseDouble(precioField), ArchivoProveedor.getProveedorByNombre(proveedorField), cantidadAdquiridaField, diaCompraField, mesCompraField, anioCompraField, diaCaducidadField, mesCaducidadField, anioCaducidadField,Double.parseDouble(capacidadField));
                 if(producto.getFechaCompra().compararSiOtraFechaEsMayor(producto.getFechaCaducidad())){
                     System.out.println("El temporaField es "+ temporadaField+" \n "+temporada.getItemAt(temporada.getSelectedIndex()));
                     ArchivoProducto.postProductoTemporada(producto, temporadaField);

@@ -24,11 +24,11 @@ import java.awt.FlowLayout;
 public class FormularioModificarInfoProducto extends JFrame implements ActionListener , ItemListener{
     private String idProducto;
     JButton botonEnvio;
-    JTextField nombre, precio, descripcion, marca, proveedor, cantidadAdquirida;
+    JTextField nombre, precio, descripcion, cualidad, capacidad, marca, proveedor, cantidadAdquirida;
     JComboBox<String> categoria, subCategoria;
     JComboBox<Integer> diasCompra, mesCompra, anioCompra, diasCaducidad, mesCaducidad, anioCaducidad;
-    JLabel idLabel, nombreLabel, precioLabel, descripcionLabel, marcaLabel, categoriaLabel, subCategoriaLabel, proveedorLabel, cantidadAdquiridaLabel, fechaCompraLabel, fechaCaducidadLabel;
-    static String nombreField, precioField, descripcionField, marcaField, categoriaField, subCategoriaField, proveedorField, fechaCompraField, fechaCaducidadField;
+    JLabel idLabel, nombreLabel, precioLabel, descripcionLabel, cualidadLabel, capacidadLabel, marcaLabel, categoriaLabel, subCategoriaLabel, proveedorLabel, cantidadAdquiridaLabel, fechaCompraLabel, fechaCaducidadLabel;
+    static String nombreField, precioField, descripcionField, cualidadField, capacidadField, marcaField, categoriaField, subCategoriaField, proveedorField, fechaCompraField, fechaCaducidadField;
     static int cantidadAdquiridaField, diaCompraField, mesCompraField, anioCompraField, diaCaducidadField, mesCaducidadField, anioCaducidadField;
     String [] categorias = DataProducto.obtenerCategorias();
     String [] subCategorias = {"-"};
@@ -54,6 +54,13 @@ public class FormularioModificarInfoProducto extends JFrame implements ActionLis
         precio.setText(String.valueOf(producto.getPrecio()));
         precioLabel = new JLabel("Precio Unitario");
         Utils.numDouble(precio);
+
+        capacidad = new JTextField(20);
+        capacidadLabel = new JLabel("Capacidad (Litros/Kilos)");
+        Utils.numDouble(capacidad);
+
+        cualidad = new JTextField(20);
+        cualidadLabel = new JLabel("Caracteristicas");
 
         descripcion = new JTextField(20);
         descripcion.setText(producto.getDescripcion());
@@ -102,6 +109,10 @@ public class FormularioModificarInfoProducto extends JFrame implements ActionLis
         add(nombre);
         add(precioLabel);
         add(precio);
+        add(capacidadLabel);
+        add(capacidad);
+        add(cualidadLabel);
+        add(cualidad);
         add(descripcionLabel);
         add(descripcion);
         add(marcaLabel);
@@ -147,6 +158,8 @@ public class FormularioModificarInfoProducto extends JFrame implements ActionLis
     public void actionPerformed(ActionEvent e) {
         nombreField = nombre.getText();
         precioField = precio.getText();
+        capacidadField = capacidad.getText();
+        cualidadField = cualidad.getText();
         descripcionField = descripcion.getText();
         marcaField = marca.getText();
         categoriaField = (String)categoria.getItemAt(categoria.getSelectedIndex());
@@ -172,7 +185,7 @@ public class FormularioModificarInfoProducto extends JFrame implements ActionLis
             ArrayList<String> subtipos = new ArrayList<>();
             subtipos = new ArrayList<>(Arrays.asList(DataProducto.opcionesSubCategoria(categoriaField)));
             if(subtipos.contains(subCategoriaField)){
-                Producto producto = new Producto(nombreField, descripcionField, marcaField, categoriaField, subCategoriaField, Double.parseDouble(precioField), ArchivoProveedor.getProveedorByNombre(proveedorField), cantidadAdquiridaField, diaCompraField, mesCompraField, anioCompraField, diaCaducidadField, mesCaducidadField, anioCaducidadField);
+                Producto producto = new Producto(nombreField, cualidadField+" - "+descripcionField, marcaField, categoriaField, subCategoriaField, Double.parseDouble(precioField), ArchivoProveedor.getProveedorByNombre(proveedorField), cantidadAdquiridaField, diaCompraField, mesCompraField, anioCompraField, diaCaducidadField, mesCaducidadField, anioCaducidadField,Double.parseDouble(capacidadField));
                 producto.setId(idProducto);
                 if(producto.getFechaCompra().compararSiOtraFechaEsMayor(producto.getFechaCaducidad())){
                     ArchivoProducto.modifyProducto(producto);

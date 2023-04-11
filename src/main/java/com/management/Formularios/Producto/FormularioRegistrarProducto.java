@@ -29,11 +29,11 @@ import java.awt.FlowLayout;
 public class FormularioRegistrarProducto extends JFrame implements ActionListener, ItemListener{
     JButton botonEnvio;
     JFormattedTextField name;
-    JTextField nombre, precio, descripcion, marca, cantidadAdquirida;
+    JTextField nombre, precio, capacidad, descripcion, cualidad, marca, cantidadAdquirida;
     JComboBox<String> categoria, subcategoria, proveedores;
     JComboBox<Integer> diasCompra, mesCompra, anioCompra, diasCaducidad, mesCaducidad, anioCaducidad;
-    JLabel nombreLabel, precioLabel, descripcionLabel, marcaLabel, categoriaLabel, subcategoriaLabel, proveedorLabel, cantidadAdquiridaLabel, fechaCompraLabel, fechaCaducidadLabel;
-    static String nombreField, precioField, descripcionField, marcaField, categoriaField, subcategoriaField, proveedorField;
+    JLabel nombreLabel, precioLabel, capacidadLabel, cualidadLabel, descripcionLabel, marcaLabel, categoriaLabel, subcategoriaLabel, proveedorLabel, cantidadAdquiridaLabel, fechaCompraLabel, fechaCaducidadLabel;
+    static String nombreField, precioField, capacidadField, cualidadField, descripcionField, marcaField, categoriaField, subcategoriaField, proveedorField;
     static int cantidadAdquiridaField, diaCompraField, mesCompraField, anioCompraField, diaCaducidadField, mesCaducidadField, anioCaducidadField;
     String [] categorias = DataProducto.obtenerCategorias();
     String [] subCategorias = {"-"};
@@ -71,6 +71,13 @@ public class FormularioRegistrarProducto extends JFrame implements ActionListene
         precio = new JTextField(20);
         precioLabel = new JLabel("Precio");
         Utils.numDouble(precio);
+
+        capacidad = new JTextField(20);
+        capacidadLabel = new JLabel("Capacidad (Litros/Kilos)");
+        Utils.numDouble(capacidad);
+
+        cualidad = new JTextField(20);
+        cualidadLabel = new JLabel("Caracteristicas");
 
         descripcion = new JTextField(20);
         descripcionLabel = new JLabel("Descripcion");
@@ -112,6 +119,10 @@ public class FormularioRegistrarProducto extends JFrame implements ActionListene
         add(nombre);
         add(precioLabel);
         add(precio);
+        add(capacidadLabel);
+        add(capacidad);
+        add(cualidadLabel);
+        add(cualidad);
         add(descripcionLabel);
         add(descripcion);
         add(marcaLabel);
@@ -167,6 +178,8 @@ public class FormularioRegistrarProducto extends JFrame implements ActionListene
     public void actionPerformed(ActionEvent e) {
         nombreField = nombre.getText();
         precioField = precio.getText();
+        capacidadField = capacidad.getText();
+        cualidadField = cualidad.getText();
         descripcionField = descripcion.getText();
         marcaField = marca.getText();
         categoriaField = (String)categoria.getItemAt(categoria.getSelectedIndex());
@@ -194,7 +207,7 @@ public class FormularioRegistrarProducto extends JFrame implements ActionListene
             ArrayList<String> subtipos = new ArrayList<>();
             subtipos = new ArrayList<>(Arrays.asList(DataProducto.opcionesSubCategoria(categoriaField)));
             if(subtipos.contains(subcategoriaField)){
-                Producto producto = new Producto(nombreField, descripcionField, marcaField, categoriaField, subcategoriaField, Double.parseDouble(precioField), ArchivoProveedor.getProveedorByNombre(proveedorField), cantidadAdquiridaField, diaCompraField, mesCompraField, anioCompraField, diaCaducidadField, mesCaducidadField, anioCaducidadField);
+                Producto producto = new Producto(nombreField, cualidadField+" - "+descripcionField, marcaField, categoriaField, subcategoriaField, Double.parseDouble(precioField), ArchivoProveedor.getProveedorByNombre(proveedorField), cantidadAdquiridaField, diaCompraField, mesCompraField, anioCompraField, diaCaducidadField, mesCaducidadField, anioCaducidadField,Double.parseDouble(capacidadField));
                 if(producto.getFechaCompra().compararSiOtraFechaEsMayor(producto.getFechaCaducidad())){
                     ArchivoProducto.postProducto(producto);
                     setVisible(false);

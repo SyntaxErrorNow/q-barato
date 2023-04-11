@@ -1,5 +1,7 @@
 package com.management;
 
+import javax.swing.JOptionPane;
+
 import com.management.utils.UtilsCategoria;
 
 public class Producto{
@@ -17,12 +19,13 @@ public class Producto{
     private Fecha fechaCompra;
     private Fecha fechaCaducidad;
     private boolean disponibilidad;
+    private double capacidad;
 
     public Producto(String nombre, String descripcion, String marca,
                     String categoria, String subCategoria, Double precio,
                     Proveedor proveedor, int cantidadAdquirida,
                     int diaCompra, int mesCompra, int anioCompra,
-                    int diaCaducidad, int mesCaducidad, int anioCaducidad)
+                    int diaCaducidad, int mesCaducidad, int anioCaducidad, double capacidad)
     {
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -37,6 +40,7 @@ public class Producto{
         this.fechaCompra = new Fecha(diaCompra,mesCompra,anioCompra);
         this.fechaCaducidad = new Fecha(diaCaducidad, mesCaducidad, anioCaducidad);
         this.disponibilidad = (cantidadDisponible > 0) ? true : false;
+        this.capacidad = capacidad;
     }
 
     public String getNombre(){
@@ -45,14 +49,28 @@ public class Producto{
     public void setNombre(String nombre){
         this.nombre = nombre;
     }
+    public double getCapacidad(){
+        return capacidad;
+    }
+    public void setCapacidad(double capacidad){
+        this.capacidad = capacidad;
+    }
     public String getId() {
         return id;
     }
     public void setId(String id) {
         this.id = id;
     }
-    public String getDescripcion() {
+    public String getDescripcionCompleta() {
         return descripcion;
+    }
+    public String getDescripcion() {
+        String[] partes = this.descripcion.split("-");
+        return partes[1];
+    }
+    public String getCualidad() {
+        String[] partes = this.descripcion.split("-");
+        return partes[0];
     }
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
@@ -126,17 +144,23 @@ public class Producto{
 
     public void venderProducto(int cantidad){
         this.cantidadDisponible -= cantidad;
-
+        this.cantidadVendida += cantidad;
+        if(cantidadDisponible<(int)(cantidadAdquirida*0.3)){
+            JOptionPane.showMessageDialog(null, nombre+" tiene pocas unidades, se recomienda reabastecer proximamente");
+        }
     }
     public void abastecerProducto(int cantidad){
         this.cantidadAdquirida += cantidad;
         this.cantidadDisponible += cantidad;
+        if(cantidadDisponible<(int)(cantidadAdquirida*0.3)){
+            JOptionPane.showMessageDialog(null, nombre+" tiene pocas unidades, se recomienda reabastecer proximamente");
+        }
     }
 
     @Override
     public String toString(){
-        return "\nNombre: " + nombre + "\nId: " + id + "\nDescripcion: " + descripcion + "\nMarca: " + marca +
-               "\nCategoria " + categoria + "\nSubCategoria: " + subCategoria + "\nPrecio unitario: " + precio +
+        return "\nNombre: " + nombre + "\nId: " + id + "\nCaracteristicas: " + getCualidad() + "\nDescripcion: " + getDescripcion() + "\nMarca: " + marca +
+               "\nCategoria " + categoria + "\nSubCategoria: " + subCategoria +"\n Capacidad"+capacidad+"\nPrecio unitario: " + precio +
                "\nProveedor: " + proveedor + "\nCantidad adquirida: " + cantidadAdquirida + "\nCantidad vendida: " + cantidadVendida +
                "\nCantidad disponible: " + cantidadDisponible + "\nFecha de compra: " + fechaCompra + "\nFecha de caducidad: " + fechaCaducidad  + "\nDisponible: "+ disponibilidad;
     }

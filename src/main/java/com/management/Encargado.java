@@ -1,17 +1,11 @@
 package com.management;
 
 
-import com.management.Formularios.Producto.FormularioBorrarProducto;
 import com.management.Formularios.Producto.FormularioBorrarProductosDeUnaCategoria;
 import com.management.Formularios.Producto.FormularioDescuento;
-import com.management.Formularios.Producto.FormularioModificarProducto;
 import com.management.Formularios.Producto.FormularioRegistrarProducto;
 import com.management.Formularios.Producto.FormularioRegistrarProductoTemporada;
-import com.management.Formularios.Proveedor.FormularioEliminarProveedor;
-import com.management.Formularios.Proveedor.FormularioPedirIDProveedor;
 import com.management.Formularios.Proveedor.FormularioRegistrarProveedor;
-import com.management.Formularios.Usuario.FormularioBorrarUsuario;
-import com.management.Formularios.Usuario.FormularioModificarUsuario;
 import com.management.Formularios.Usuario.FormularioRegistrarUsuario;
 
 
@@ -28,11 +22,9 @@ public class Encargado extends Usuario{
     }
 
     public void modificarEmpleado(){
-        new FormularioModificarUsuario();
     }
 
     public void eliminarEmpleado(){
-        new FormularioBorrarUsuario();
 
     }
 
@@ -45,11 +37,9 @@ public class Encargado extends Usuario{
     }
 
     public void modificarProducto(){
-        new FormularioModificarProducto();
     }
 
     public void eliminarProducto(){
-        new FormularioBorrarProducto();
     }
 
     public void eliminarProductosPorCategoria(){
@@ -65,10 +55,8 @@ public class Encargado extends Usuario{
     }
 
     public void modificarProveedor(){
-        new FormularioPedirIDProveedor();
     }
 
     public void eliminarProveedor(){
-        new FormularioEliminarProveedor();
     }
 }

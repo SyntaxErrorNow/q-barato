@@ -138,6 +138,7 @@ public class FormularioRegistrarUsuario extends JFrame implements ActionListener
 
             Usuario usuario = new Usuario(nombreField, edadField, ciField, contrasenaField, cargoField);
             ArchivoUsuario.postUser(usuario);
+            setVisible(false);
 
         }
     }

@@ -6,11 +6,12 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import com.management.Fecha;
 import com.management.Producto;
-import com.management.RegistroMovientos;
+import com.management.Registro;
 import com.management.Archivos.ArchivoProducto;
 import com.management.Archivos.ArchivoRegistro;
 import com.management.utils.Utils;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 public class FormularioRegistrarPerdida extends JFrame implements ActionListener, ItemListener {
@@ -24,7 +25,7 @@ public class FormularioRegistrarPerdida extends JFrame implements ActionListener
 
     public FormularioRegistrarPerdida(){
         setLayout(new FlowLayout());
-        texto = new JLabel("ID del producto a vender");
+        texto = new JLabel("ID del producto que se perdio");
         ID = new JTextField(20);
 
         perdidas = new JLabel("Cantidad del producto que se perdio");
@@ -53,6 +54,12 @@ public class FormularioRegistrarPerdida extends JFrame implements ActionListener
         add(anio);
         add(botonEnvio);
 
+        this.setSize(250,250);
+            this.setResizable(false);
+            this.setLocationRelativeTo(null);
+            this.getContentPane().setBackground(Color.WHITE);
+            this.setVisible(true);
+
 
     }
 
@@ -79,11 +86,11 @@ public class FormularioRegistrarPerdida extends JFrame implements ActionListener
                 producto.setId(IDField);
                 producto.venderProducto(restasField);
                 ArchivoProducto.modifyProducto(producto);
-                RegistroMovientos registros = new RegistroMovientos(producto, restasField, fechaField, motivo, (producto.getPrecio() * restasField) * -1);
-                ArchivoRegistro.postRegistro(registros);
+                Registro registro = new Registro(producto, restasField, fechaField, (restasField * producto.getPrecio()) * -1 , "Perdida", motivo );
+                ArchivoRegistro.postRegistro(registro);
                 setVisible(false);
-            }else{
-                JOptionPane.showMessageDialog(null, "Fallo aritmetico!","ERROR!", JOptionPane.ERROR_MESSAGE);
+            }else{  
+                JOptionPane.showMessageDialog(null, "No hay suficiente stock!","ERROR!", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

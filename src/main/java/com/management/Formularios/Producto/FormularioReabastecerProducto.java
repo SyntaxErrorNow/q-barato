@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 import com.management.Fecha;
 import com.management.Producto;
-import com.management.RegistroAbastecimientos;
+import com.management.Registro;
 import com.management.Archivos.ArchivoProducto;
 import com.management.Archivos.ArchivoProveedor;
 import com.management.Archivos.ArchivoRegistro;
@@ -101,7 +101,7 @@ public class FormularioReabastecerProducto extends JFrame implements ActionListe
         }else{
             this.producto.setProveedor(ArchivoProveedor.getProveedorByNombre(proveedorField));
             this.producto.abastecerProducto(Integer.parseInt(cantidadAdquiridaField));
-            RegistroAbastecimientos registro = new RegistroAbastecimientos(producto, Integer.parseInt(cantidadAdquiridaField), fechaField, ArchivoProveedor.getProveedorByNombre(proveedorField));
+            Registro registro = new Registro(producto, Integer.parseInt(cantidadAdquiridaField), fechaField, 0 , "Abastecimiento", "Compra de producto" );
             ArchivoRegistro.postRegistro(registro);
             ArchivoProducto.modifyProducto(this.producto);
             setVisible(false);

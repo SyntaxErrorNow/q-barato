@@ -74,6 +74,34 @@ public class ArchivoProveedor {
         }
     }
 
+    public static Object[][] getAllDatosProveedores(){
+        try {
+            ArrayList<Proveedor> proveedores = new ArrayList<Proveedor>();
+            File carpeta1 = new File("proveedores/");
+            java.util.List<String> proveedoresId = Arrays.asList(carpeta1.list());
+            for (String proveedoreId : proveedoresId) {
+                Proveedor proveedor = getProveedor(obtenerId(proveedoreId));
+                    proveedores.add(proveedor);
+            }
+
+            Object[][] datosProveedores = new Object[proveedores.size()][6];
+            for (int i = 0; i < proveedores.size(); i++) {
+                Proveedor proveedor = proveedores.get(i);
+                datosProveedores[i][0] = proveedor.getId();
+                datosProveedores[i][1] = proveedor.getNombre() ;
+                datosProveedores[i][2] = proveedor.getTelefono();
+                datosProveedores[i][3] = proveedor.getProductosProveedor().toString().replace("[", "").replace("]", "");
+                datosProveedores[i][4] = ":";
+                datosProveedores[i][5] = "-";
+            }
+
+            return datosProveedores;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 
     private static String obtenerId(String archivoJSON){
         return archivoJSON.substring(0, archivoJSON.length() - 5);
