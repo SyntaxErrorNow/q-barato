@@ -14,8 +14,8 @@ import java.awt.event.*;
 
 public class Dashboard extends JFrame implements ActionListener{
     private Usuario usuario;
-    private JPanel pagePrincipal, panelProducto, panelEmpleado, panelProveedor, panelInventario, sidebar, panelMovimientos;
-    private JButton buttonProductos, buttonEmpleados, buttonProveedores, buttonInventarios, buttonMovimientos;
+    private JPanel pagePrincipal, panelProducto, panelEmpleado, panelProveedor, panelInventario, sidebar, panelMovimientos,panelReporteTexualAll;
+    private JButton buttonProductos, buttonEmpleados, buttonProveedores, buttonInventarios, buttonMovimientos,buttonReporteTexualAll;
 
     public Dashboard(int ci) {
         this.usuario = ArchivoUsuario.getUser(ci);

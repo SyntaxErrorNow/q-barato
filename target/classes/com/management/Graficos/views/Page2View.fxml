@@ -11,8 +11,8 @@
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
       <!-- content here -->
          <children>
-            <Button fx:id="MostrarCantidadesButton" layoutX="299.0" layoutY="168.0" mnemonicParsing="false" onAction="#showGraphicBarras" text="Mostrar Cantidades De Productos" />
-            <Button fx:id="MostrarPerdidasButton" layoutX="115.0" layoutY="168.0" mnemonicParsing="false" onAction="#showGraphicPie" text="Mostrar Perdidas" />
+            <Button fx:id="MostrarCantidadesButton" layoutX="299.0" layoutY="168.0" mnemonicParsing="false" onAction="#showGraphicBarras" text="Ventas semestrales" />
+            <Button fx:id="MostrarPerdidasButton" layoutX="115.0" layoutY="168.0" mnemonicParsing="false" onAction="#showGraphicPie" text="Inventario" />
             <Label layoutX="204.0" layoutY="51.0" text="Opciones de analisis" textFill="#341c56">
                <font>
                   <Font name="Amiri" size="18.0" />

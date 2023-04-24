@@ -38,24 +38,24 @@ public class FormularioMostrarReporte  extends JFrame implements ActionListener 
     public void actionPerformed(ActionEvent e){String IDField = ID.getText();
         Producto producto = ArchivoProducto.getProducto(IDField);
         try{
-            archivo = new FileWriter("D:\\pruebas\\producto" + IDField+".txt");
-            escritor = new PrintWriter(archivo);
-            escritor.println("---------- REPORTE PRODUCTO" + IDField + " ----------");
-            escritor.println("");
-            escritor.println("-> NOMBRE DEL PRODUCTO " + producto.getNombre());
-            escritor.println("-> MARCA DEL PRODUCTO " + producto.getMarca());
-            escritor.println("-> CATEGORIA DEL PRODUCTO " + producto.getCategoria());
-            escritor.println("-> PRECIO DEL PRODUCTO " + producto.getPrecio());
-            escritor.println("-> PROVEEDOR DEL PRODUCTO " + producto.getProveedor());
-            escritor.println("-> CANTIDAD ADQUIRIDA " + producto.getCantidadAdquirida());
-            escritor.println("-> CANTIDAD VENDIDA " + producto.getCantidadVendida());
-            escritor.println("-> GANANCIAS DEL PRODUCTO " + (producto.getCantidadVendida() * producto.getPrecio()));
-            escritor.println("-> CANTIDAD DISPONIBLE " + producto.getCantidadDisponible());
+            BufferedWriter archivo = new BufferedWriter(new FileWriter("reporteProducto/" + IDField+".txt"));
+            archivo.write( "\n---------- REPORTE PRODUCTO" + IDField + " ----------" +
+                           "\n-> NOMBRE DEL PRODUCTO " + producto.getNombre() +
+                           "\n-> MARCA DEL PRODUCTO " + producto.getMarca() +
+                           "\n-> CATEGORIA DEL PRODUCTO " + producto.getCategoria() +
+                           "\n-> PRECIO DEL PRODUCTO " + producto.getPrecio() +
+                           "\n-> PROVEEDOR DEL PRODUCTO " + producto.getProveedor() +
+                           "\n-> CANTIDAD ADQUIRIDA " + producto.getCantidadAdquirida() +
+                           "\n-> CANTIDAD VENDIDA " + producto.getCantidadVendida() +
+                           "\n-> GANANCIAS DEL PRODUCTO " + (producto.getCantidadVendida() * producto.getPrecio()) +
+                           "\n-> CANTIDAD DISPONIBLE " + producto.getCantidadDisponible() 
+            );
+        
+            archivo.close();
         }catch (Exception e1){
             System.out.println("Error " + e1.getMessage());
         }finally{
             try{
-                archivo.close();
             }catch(Exception e2){
                 System.out.println("Error " + e2.getMessage());
             }

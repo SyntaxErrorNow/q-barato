@@ -32,6 +32,7 @@ public class InventarioNavbar extends JPanel{
         buttonRecuperarInventarios.setBounds(960, 20, 200, 20);
         add(buttonRecuperarInventarios);
 
+
     }
 
 }

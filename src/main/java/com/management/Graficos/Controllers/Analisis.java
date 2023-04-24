@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.management.Producto;
 
 public class Analisis {
-    public static int cantidadPerdida(ArrayList<Producto> productos) {
+    public static int cantidadVendida(ArrayList<Producto> productos) {
         int value = 0;
         for (Producto p : productos) {
             value += p.getCantidadVendida();

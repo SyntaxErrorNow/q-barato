@@ -24,7 +24,7 @@ public class InventarioPanel extends JPanel{
         add(navBar);
 
         String[] columnas = {"Año", "mes", "ID", "Ganancia", "Perdida", "Ganancia Total",
-                            "Cantidad vendida","Cantidad perdida", "Cantidad adquirida", "Capital invertido" , "Existencias","Modificar", "Borrar"};
+                            "Cantidad vendida","Cantidad perdida", "Cantidad adquirida", "Capital invertido" , "Existencias", "Reporte Textual"};
 
         datosInventario = ArchivoInventario.getAllDatosInventarios();
 
@@ -34,10 +34,10 @@ public class InventarioPanel extends JPanel{
 
         MouseListener mouseListener = new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
+                if (e.getClickCount() == 1) {
                     int row = tablaInventarios.rowAtPoint(e.getPoint());
                     int column = tablaInventarios.columnAtPoint(e.getPoint());
-                    String ID = datosInventario[row][2].toString();
+                    String ID = tablaInventarios.getValueAt(row, 2).toString();
                     if(column == 10){
                         ExistenciasPanel panel = new ExistenciasPanel(ArchivoInventario.getInventario(ID));
                         Dashboard aux = new Dashboard(10101010);
@@ -54,11 +54,9 @@ public class InventarioPanel extends JPanel{
                         }*/
                     }
                     if(column == 11){
-                        ArchivoInventario.postInventario(ArchivoInventario.getInventario(ID));
+                        new ReporteTextualPDF(ID);
                     }
-                    if(column == 12){
-                        ArchivoInventario.deleteProducto(ArchivoInventario.getInventario(ID));
-                    }
+                    
                 }
             }
         };

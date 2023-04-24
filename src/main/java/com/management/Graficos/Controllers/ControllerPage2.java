@@ -51,8 +51,9 @@ public class ControllerPage2 {
     // String id = LBName.getText();
     // Inventario data = ArchivoInventario.getInventario(id);
     ArrayList<Producto> lista = ArchivoInventario.recopilarProductosDelMomento();
-    private int cantidadPerdida = new Analisis().cantidadPerdida(lista);
+    private int cantidadVendida = new Analisis().cantidadVendida(lista);
     private int cantidadRestante = new Analisis().cantidadRestante(lista);
+    
     @FXML
     private PieChart chart;
     
@@ -61,39 +62,26 @@ public class ControllerPage2 {
     
     @FXML
     void showGraphicBarras(ActionEvent event) throws IOException {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/ViewGraphicBarras.fxml"));
-            Parent root = loader.load();
-            
-            // Get a reference to the controller for the new window
-            ControllerGraphicBarras controller = loader.getController();
-            
-            // Initialize the chart with data
-            CategoryAxis xAxis = new CategoryAxis();
-            xAxis.setLabel("Category");
-                            
-            NumberAxis yAxis = new NumberAxis();
-            yAxis.setLabel("Value");
-            barChart = new BarChart<>(xAxis, yAxis);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/ViewGraphicBarras.fxml"));
+        Parent root = loader.load();
 
-            XYChart.Series<String, Number> dataSeries = new XYChart.Series<>();
-            dataSeries.getData().add(new XYChart.Data<>("Data 1", 10));
-            dataSeries.getData().add(new XYChart.Data<>("Data 2", 20));
-            dataSeries.getData().add(new XYChart.Data<>("Data 3", 30));
-            dataSeries.getData().add(new XYChart.Data<>("Data 4", 40));
+        ControllerGraphicBarras controller = loader.getController();
 
-            barChart.getData().add(dataSeries);  // use the private field of the class here
-                            
-            barChart.setTitle("Alalisis Cantidades");
-            
-            // Set the chart in the controller and display the window
-            controller.setChart(barChart);
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        XYChart.Series series = new XYChart.Series();
+        series.getData().add(new XYChart.Data("Enero", 85));
+        series.getData().add(new XYChart.Data("Febrero", 68));
+        series.getData().add(new XYChart.Data("Marzo", 110));
+        series.getData().add(new XYChart.Data("Abril", 114));
+        series.getData().add(new XYChart.Data("Mayo", 14));
+        series.getData().add(new XYChart.Data("Junio", 74));
+        controller.barChart.getData().add(series);
+
+        controller.barChart.setTitle("Cantidad de ventas por mes");
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
     }    
 
     @FXML
@@ -104,24 +92,20 @@ public class ControllerPage2 {
         // Get a reference to the controller
         ControllerGraphicPie controller = loader.getController();
 
-
         // Initialize the chart
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-            new PieChart.Data("ventas", 6),
+            new PieChart.Data("Cantidad vendida", cantidadVendida),
             new PieChart.Data("Capital restante", cantidadRestante)
         );
         controller.chart.setData(pieChartData);
-        
         // Customize other chart attributes as needed
-        controller.chart.setTitle("My Pie Chart");
+        controller.chart.setTitle("Capital actual");
         controller.chart.setLegendVisible(false);
-
         // Create a new stage to display the chart
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
     }
-
     public void init(String text, Stage stage, ControllerPage1 controllerPage1) {
         LBName.setText(text);
         this.controllerPage1 = controllerPage1;

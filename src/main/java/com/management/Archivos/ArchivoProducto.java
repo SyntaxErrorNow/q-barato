@@ -51,7 +51,7 @@ public class    ArchivoProducto {
         ArrayList<Producto> pcategoria = new ArrayList<>();
         File[] fAuxiliar = new File("productos/"+ UtilsCategoria.obtenerNumeroCategoria(categoria)+" "+categoria).listFiles();
         int hallados = 0;
-            for(int i = 1; i<= 9999; i++){
+            for(int i = 1; i<= 9; i++){
                 if(hallados<fAuxiliar.length){
                     Producto p = getProducto((( UtilsCategoria.obtenerNumeroCategoria(categoria) * 10000) + i) + "");
                     if(p!=null){

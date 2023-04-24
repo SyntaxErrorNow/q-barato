@@ -1,0 +1,15 @@
+
+---------- REPORTE PRODUCTO20005 ----------
+-> NOMBRE DEL PRODUCTO pan molde
+-> MARCA DEL PRODUCTO bimbo
+-> CATEGORIA DEL PRODUCTO comestibles
+-> PRECIO DEL PRODUCTO 15.0
+-> PROVEEDOR DEL PRODUCTO 
+Id: e6b799
+Nombre de Proveedor: bimbo
+Telefono: 65213458
+Productos que provee: [pan, pan integral, pan molde]
+-> CANTIDAD ADQUIRIDA 50
+-> CANTIDAD VENDIDA 0
+-> GANANCIAS DEL PRODUCTO 0.0
+-> CANTIDAD DISPONIBLE 50

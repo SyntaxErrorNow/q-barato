@@ -23,9 +23,9 @@ public class ProductoPanel extends JPanel{
         navBar.setBounds(0, 0, 1200, 70);
         add(navBar);
 
-        String[] columnas = {"id", "nombre", "descripcion", "cualidades", "marca", "categoria",
-                            "subCategoria", "precio","capacidad", "proveedor", "cantidadAdquirida",
-                            "cantidadVendida", "cantidadDisponible", "fechaCompra",
+        String[] columnas = {"id", "nombre", "capacidad", "descripción", "cualidades", "marca",
+                            "categoria", "sub categoria","precio", "proveedor", "Adquirida",
+                            "Vendida", "Disponible", "fechaCompra",
                             "fechaCaducidad", "disponibilidad", "Modificar", "Eliminar"};
 
         Object [][] datosEmpleados = ArchivoProducto.getAllDatosProductos();

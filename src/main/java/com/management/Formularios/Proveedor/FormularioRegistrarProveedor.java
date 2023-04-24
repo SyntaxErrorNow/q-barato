@@ -58,6 +58,7 @@ public class FormularioRegistrarProveedor extends JFrame implements ActionListen
     @Override
     public void actionPerformed(ActionEvent e) {
         nombreField = nombre.getText();
+        telefonoField = telefono.getText();
         listaProductosProveedorField = listaProductosProveedor.getText();
 
         if(nombreField.equals("")){

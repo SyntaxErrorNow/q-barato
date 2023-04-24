@@ -74,9 +74,9 @@ public class ArchivoInventario  {
         }catch(Exception e){
         }
     }
-    public static Map<String, Integer> getProductosMasVendidos(ArrayList<Registro> registros){
-
+    public static List<Entry<String, Integer>> getProductosMasVendidos(ArrayList<Registro> registros){
         Map<String, Integer> mapaProductos = new HashMap<>();
+        registros.sort(Comparator.comparing(Registro::getCantidad).reversed());
         for (Registro registro : registros) {
             String nombre = registro.getProducto().getNombre();
             int cantidad = registro.getCantidad();
@@ -88,25 +88,13 @@ public class ArchivoInventario  {
                 mapaProductos.put(nombre, cantidad);
             }
         }
-
         List<Entry<String, Integer>> list = new ArrayList<>(mapaProductos.entrySet());
-        //Collections.reverse(list);
-        //list.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
-
         Collections.sort(list, new Comparator<Entry<String, Integer>>() {
             public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
-                return o1.getValue().compareTo(o2.getValue());
+                return o2.getValue().compareTo(o1.getValue());
             }
         });
-
-
-        Map<String, Integer> sortedMap = new HashMap<>();
-        for (Entry<String, Integer> entry : list) {
-            sortedMap.put(entry.getKey(), entry.getValue());
-        }
-
-        return sortedMap;
-
+        return list;
     }
 
     public static ArrayList<Producto> recopilarProductosDelMomento(){
@@ -172,7 +160,7 @@ public class ArchivoInventario  {
         inventarios = recopilarInventarios();
 
 
-        Object[][] datosInventarios = new Object[inventarios.size()][13];
+        Object[][] datosInventarios = new Object[inventarios.size()][12];
             for (int i = 0; i < inventarios.size(); i++) {
                 Inventario inventario = inventarios.get(i);
 
@@ -187,8 +175,8 @@ public class ArchivoInventario  {
                 datosInventarios[i][8] = inventario.getCantidadAdquirida();
                 datosInventarios[i][9] = inventario.getCapitalInvertido();
                 datosInventarios[i][10] = "Ver mas";
-                datosInventarios[i][11] = "*";
-                datosInventarios[i][12] = "-";
+                datosInventarios[i][11] = "📄";
+              
             }
         return datosInventarios;
     }

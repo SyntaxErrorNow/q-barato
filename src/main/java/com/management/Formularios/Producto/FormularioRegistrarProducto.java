@@ -69,47 +69,47 @@ public class FormularioRegistrarProducto extends JFrame implements ActionListene
 
 
         precio = new JTextField(20);
-        precioLabel = new JLabel("Precio");
+        precioLabel = new JLabel("\nPrecio");
         Utils.numDouble(precio);
 
         capacidad = new JTextField(20);
-        capacidadLabel = new JLabel("Capacidad (Litros/Kilos)");
+        capacidadLabel = new JLabel("\nCapacidad (Litros/Kilos)");
         Utils.numDouble(capacidad);
 
         cualidad = new JTextField(20);
-        cualidadLabel = new JLabel("Caracteristicas");
+        cualidadLabel = new JLabel("\nCaracteristicas");
 
         descripcion = new JTextField(20);
-        descripcionLabel = new JLabel("Descripcion");
+        descripcionLabel = new JLabel("\nDescripcion");
 
         marca = new JTextField(20);
-        marcaLabel = new JLabel("Marca");
+        marcaLabel = new JLabel("\nMarca");
 
         categoria = new JComboBox<String>(categorias);
-        categoriaLabel = new JLabel("Categoria");
+        categoriaLabel = new JLabel("\nCategoria");
         categoria.addItemListener(this);
 
         subcategoria = new JComboBox<String>(subCategorias);
-        subcategoriaLabel = new JLabel("Subcategoria");
+        subcategoriaLabel = new JLabel("\nSubcategoria");
 
         proveedores = new JComboBox<String>(vacio);
-        proveedorLabel = new JLabel("Proveedores para el producto");
+        proveedorLabel = new JLabel("\nProveedores para el producto");
 
         cantidadAdquirida = new JTextField(20);
-        cantidadAdquiridaLabel = new JLabel("Cantidad adquirida");
+        cantidadAdquiridaLabel = new JLabel("\nCantidad adquirida");
         Utils.numInteger(cantidadAdquirida);
 
         anioCompra = new JComboBox<Integer>(aniosDisponibles);
         mesCompra = new JComboBox<Integer>(mesesDisponibles);
         mesCompra.addItemListener(this);
         diasCompra = new JComboBox<Integer>(diasDisponibles);
-        fechaCompraLabel = new JLabel("Fecha de compra");
+        fechaCompraLabel = new JLabel("\nFecha de compra");
 
         anioCaducidad = new JComboBox<Integer>(aniosDisponibles);
         mesCaducidad = new JComboBox<Integer>(mesesDisponibles);
         mesCaducidad.addItemListener(this);
         diasCaducidad = new JComboBox<Integer>(diasDisponibles);
-        fechaCaducidadLabel = new JLabel("Fecha de caducidad");
+        fechaCaducidadLabel = new JLabel("\nFecha de caducidad");
 
         botonEnvio = new JButton();
         botonEnvio.setText("Registrar");
@@ -145,7 +145,7 @@ public class FormularioRegistrarProducto extends JFrame implements ActionListene
         add(anioCaducidad);
         add(botonEnvio);
 
-        this.setSize(300,600);
+        this.setSize(280,600);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.WHITE);

@@ -24,20 +24,13 @@
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
-    </dependency>
+  </dependency>
 
     <!-- javaFX FXML dependencies -->
-
-
-    <dependency> 
-      <groupId>org.openjfx</groupId> 
-      <artifactId>javafx-swing</artifactId> 
-      <version>11</version>
-    </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-swing</artifactId>
-      <version>17.0.1</version>
+      <version>19</version>
       <classifier>win</classifier>
     </dependency>
     <dependency>
@@ -48,13 +41,13 @@
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-graphics</artifactId>
-      <version>17.0.1</version>
+      <version>19</version>
       <classifier>win</classifier>
     </dependency>
     <dependency> 
       <groupId>org.openjfx</groupId> 
       <artifactId>javafx-fxml</artifactId> 
-      <version>16</version> 
+      <version>21-ea+5</version> 
     </dependency>
     <dependency>
         <groupId>org.jfree</groupId>
@@ -65,7 +58,7 @@
 
     <!-- end  -->
 
-    <dependency>
+   <dependency>
     <groupId>org.mockito</groupId>
     <artifactId>mockito-core</artifactId>
     <version>4.2.0</version>
@@ -77,11 +70,13 @@
     <version>4.2.0</version>
     <scope>test</scope>
     </dependency>
+
     <dependency>
         <groupId>com.itextpdf</groupId>
         <artifactId>itextpdf</artifactId>
         <version>5.5.13</version>
     </dependency>
+
 
     <dependency>
       <groupId>com.google.code.gson</groupId>

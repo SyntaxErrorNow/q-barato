@@ -8,11 +8,11 @@ import com.management.Formularios.Producto.FormularioRegistrarMovimientos;
 import com.management.Formularios.Producto.FormularioVerificarEstadoProducto;
 
 public class Usuario {
-    private String nombre;
-    private String cargo;
-    private String contrasena;
-    private int edad;
-    private int ci;
+    protected String nombre;
+    protected String cargo;
+    protected String contrasena;
+    protected int edad;
+    protected int ci;
 
     public Usuario(){
     }
