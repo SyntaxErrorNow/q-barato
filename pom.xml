@@ -24,48 +24,88 @@
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
-    </dependency>
+  </dependency>
 
     <!-- javaFX FXML dependencies -->
-
-
-    <dependency> 
-      <groupId>org.openjfx</groupId> 
-      <artifactId>javafx-swing</artifactId> 
-      <version>11</version>
-    </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-swing</artifactId>
-      <version>17.0.1</version>
+      <version>17</version>
       <classifier>win</classifier>
+    </dependency>
+   <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-base</artifactId>
+        <version>17</version>
     </dependency>
     <dependency>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-controls</artifactId>
-        <version>21-ea+5</version>
+        <version>17</version>
     </dependency>
     <dependency>
-      <groupId>org.openjfx</groupId>
-      <artifactId>javafx-graphics</artifactId>
-      <version>17.0.1</version>
-      <classifier>win</classifier>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-fxml</artifactId>
+        <version>17</version>
     </dependency>
-    <dependency> 
-      <groupId>org.openjfx</groupId> 
-      <artifactId>javafx-fxml</artifactId> 
-      <version>16</version> 
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-graphics</artifactId>
+        <version>17</version>
     </dependency>
     <dependency>
         <groupId>org.jfree</groupId>
         <artifactId>jfreechart</artifactId>
-        <version>1.5.4</version>
-    </dependency>   
+        <version>1.5.3</version>
+    </dependency>
 
 
     <!-- end  -->
+<!-- https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-sync -->
+ <dependency>
+    <groupId>org.mongodb</groupId>
+    <artifactId>mongodb-driver-sync</artifactId>
+    <version>4.9.0</version>
+  </dependency>
 
-    <dependency>
+<!-- https://mvnrepository.com/artifact/org.mongodb/bson -->
+
+
+<dependency>
+    <groupId>org.mongodb</groupId>
+    <artifactId>mongo-java-driver</artifactId>
+    <version>3.12.11</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>2.0.6</version>
+</dependency>
+
+
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-simple</artifactId>
+    <version>2.0.6</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+<dependency>
+    <groupId>commons-beanutils</groupId>
+    <artifactId>commons-beanutils</artifactId>
+    <version>1.9.4</version>
+</dependency>
+
+
+<dependency>
+    <groupId>org.openpnp</groupId>
+    <artifactId>opencv</artifactId>
+    <version>4.5.1-2</version>
+</dependency>
+
+   <dependency>
     <groupId>org.mockito</groupId>
     <artifactId>mockito-core</artifactId>
     <version>4.2.0</version>
@@ -77,56 +117,61 @@
     <version>4.2.0</version>
     <scope>test</scope>
     </dependency>
+
     <dependency>
         <groupId>com.itextpdf</groupId>
         <artifactId>itextpdf</artifactId>
         <version>5.5.13</version>
     </dependency>
 
+
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
-      <version>2.10.1</version>
+      <version>2.9.0</version>
     </dependency>
+
+    
   </dependencies>
+
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
 
         <!-- plugin javaFX FXML -->
-        
-        <plugin> 
-          <groupId>org.apache.maven.plugins</groupId> 
-          <artifactId>maven-compiler-plugin</artifactId> 
-          <version>3.8.1</version> 
-          <configuration> 
-            <release>15</release> 
-            <compilerArgs> 
-              <arg>–add-modules</arg> 
-              <arg>javafx.fxml</arg> 
-            </compilerArgs> 
-          </configuration> 
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.1</version>
+          <configuration>
+            <release>15</release>
+            <compilerArgs>
+              <arg>–add-modules</arg>
+              <arg>javafx.fxml</arg>
+            </compilerArgs>
+          </configuration>
         </plugin>
 
-        <plugin> 
-          <groupId>org.codehaus.mojo</groupId> 
-          <artifactId>exec-maven-plugin</artifactId> 
-          <version>3.0.0</version> 
-          <executions> 
-          <execution> 
-          <phase>package</phase> 
-          <goals> 
-            <goal>exec</goal> 
-          </goals> 
-          </execution> </executions> 
-          <configuration> 
-            <executable>C:\java\jdk-19.0.1</executable> 
-            <arguments> 
-              <argument>–add-modules</argument> 
-              <argument>javafx.swing</argument> <!-- otros argumentos --> 
-            </arguments> 
-          </configuration> 
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>3.0.0</version>
+          <executions>
+          <execution>
+          <phase>package</phase>
+          <goals>
+            <goal>exec</goal>
+          </goals>
+          </execution> </executions>
+          <configuration>
+            <executable>C:\Program Files\javafx-sdk-17.0.7</executable>
+            <arguments>
+              <argument>–add-modules</argument>
+              <argument>javafx.swing</argument> <!-- otros argumentos -->
+            </arguments>
+          </configuration>
         </plugin>
                 <!-- Plugin de JavaFX para Maven -->
         <plugin>
@@ -138,7 +183,7 @@
             <mainClass>com.example.App</mainClass>
             <options>
               <option>--module-path</option>
-              <option>C:\\java\\javafx-sdk-19.0.2.1\\lib\</option>
+              <option>C:\Program Files\javafx-sdk-17.0.7\\lib\</option>
               <option>--add-modules</option>
               <option>javafx.swing,javafx.graphics</option>
             </options>
